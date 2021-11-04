@@ -18,27 +18,14 @@ public class JdbcAccountDao implements AccountDao{
         this.jdbcTemplate = jdbcTemplate;
     }
 
-//    @Override
-//    public Account getBalance(String user) {
-//        Account balance = null;
-//        String sql = "SELECT a.balance" +
-//                "FROM accounts " +
-//                "JOIN users u ON a.user_id = u.user_id " +
-//                "WHERE u.username = ?";
-//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user);
-//        if (results.next()) {
-//            String accountBalance = results.getString("balance");
-//            balance.setBalance(new BigDecimal(accountBalance));
-//        }
-//        return balance;
-//    }
 
     @Override
-    public Account getAccountByUserId(int userId) {
+    public Account getAccountByUsername(String username) {
         Account account = null;
-        String sql = "SELECT account_id, user_id, balance FROM accounts WHERE user_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
-
+        String sql = "SELECT accounts.account_id, accounts.user_id, accounts.balance FROM accounts " +
+                "JOIN users ON users.user_id = accounts.user_id " +
+                "WHERE users.username = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
         if(results.next()){
             account = mapRowToAccount(results);
         }
@@ -73,7 +60,7 @@ public class JdbcAccountDao implements AccountDao{
 
     private Account mapRowToAccount(SqlRowSet rowSet) {
         Account account = new Account();
-        account.setAccountId(rowSet.getInt("accountId"));
+        account.setAccountId(rowSet.getInt("account_id"));
         account.setUserId(rowSet.getInt("user_id"));
         account.setBalance(rowSet.getBigDecimal("balance"));
 

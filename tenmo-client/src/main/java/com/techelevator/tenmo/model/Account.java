@@ -5,12 +5,14 @@ import java.math.BigDecimal;
 public class Account {
     private int accountId;
     private int userId;
+    private String username;
     private BigDecimal balance;
 
-    public Account(int accountId, int userId, BigDecimal balance) {
+    public Account(int accountId, int userId, BigDecimal balance, String username) {
         this.accountId = accountId;
         this.userId = userId;
         this.balance = balance;
+        this.username = username;
     }
 
     public Account() {
@@ -40,11 +42,20 @@ public class Account {
         this.balance = balance;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
         return "Account{" +
                 "accountId=" + accountId +
                 ", userId=" + userId +
+                ", username='" + username + '\'' +
                 ", balance=" + balance +
                 '}';
     }
