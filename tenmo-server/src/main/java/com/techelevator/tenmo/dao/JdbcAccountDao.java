@@ -63,7 +63,7 @@ public class JdbcAccountDao implements AccountDao{
         Balance balance = new Balance();
         String accountBalance = results.getString("balance");
         balance.setBalance(new BigDecimal(accountBalance));
-        return new Account(accountId,userAccountId,balance);
+        return new Account(accountId,userAccountId,BigDecimal balance);
     }
 
 }
