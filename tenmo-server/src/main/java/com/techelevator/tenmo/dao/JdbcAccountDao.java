@@ -59,7 +59,7 @@ public class JdbcAccountDao implements AccountDao{
     @Override
     public List<Account> getAllAccounts() {
         List<Account> accounts = new ArrayList<>();
-        String sql = "SELECT * FROM accounts";
+        String sql = "SELECT account_id, user_id, balance FROM accounts;";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()){
@@ -75,7 +75,8 @@ public class JdbcAccountDao implements AccountDao{
         Account account = new Account();
         account.setAccountId(rowSet.getInt("accountId"));
         account.setUserId(rowSet.getInt("user_id"));
-        account.getBalance(rowSet.getBigDecimal("balance"));
+        account.setBalance(rowSet.getBigDecimal("balance"));
+
         return account;
     }
 

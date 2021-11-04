@@ -10,26 +10,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("http://localhost:8080/")
-@PreAuthorize("isAuthenticated")
+@RequestMapping("")
+//@PreAuthorize("isAuthenticated")
 
 public class TEnmoController {
     private AccountDao accountDao;
-    private TransferDao transferDao;
-    private TransferStatusDao transferStatusDao;
-    private TransferTypeDao transferTypeDao;
     private UserDao userDao;
 
     public TEnmoController(AccountDao dao) {
         this.accountDao = dao;
     }
 
-    @PreAuthorize("permitAll")
-    @RequestMapping(path = "accounts" , method = RequestMethod.GET)
+ //   @PreAuthorize("permitAll")
+    @RequestMapping(path = "/accounts/" , method = RequestMethod.GET)
     public List<Account> getAccounts() {
         return accountDao.getAllAccounts();
     }
+
+    @RequestMapping(path = "accounts/balance", method = RequestMethod.GET)
+    public BigDecimal accountBalance(Principal principal) {
+        String principalName = principal.getName();
+
+        int userId = userDao.findByUsername(principalName).getId();
+
+        return accountDao.getAccountByUserId(userId).getBalance();
+
+    }
+
 }
