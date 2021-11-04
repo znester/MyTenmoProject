@@ -32,11 +32,20 @@ public class Account {
         this.userId = userId;
     }
 
-    public BigDecimal getBalance() {
-        return balance;
+    public BigDecimal getBalance(BigDecimal balance) {
+        return this.balance;
     }
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountId=" + accountId +
+                ", userId=" + userId +
+                ", balance=" + balance +
+                '}';
     }
 }

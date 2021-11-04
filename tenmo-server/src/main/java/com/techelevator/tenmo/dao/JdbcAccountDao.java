@@ -1,12 +1,12 @@
 package com.techelevator.tenmo.dao;
 
 import com.techelevator.tenmo.model.Account;
-import com.techelevator.tenmo.model.Balance;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class JdbcAccountDao implements AccountDao{
@@ -18,20 +18,20 @@ public class JdbcAccountDao implements AccountDao{
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
-    public Account getBalance(String user) {
-        Account balance = null;
-        String sql = "SELECT a.balance" +
-                "FROM accounts " +
-                "JOIN users u ON a.user_id = u.user_id " +
-                "WHERE u.username = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user);
-        if (results.next()) {
-            String accountBalance = results.getString("balance");
-            balance.setBalance(new BigDecimal(accountBalance));
-        }
-        return balance;
-    }
+//    @Override
+//    public Account getBalance(String user) {
+//        Account balance = null;
+//        String sql = "SELECT a.balance" +
+//                "FROM accounts " +
+//                "JOIN users u ON a.user_id = u.user_id " +
+//                "WHERE u.username = ?";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user);
+//        if (results.next()) {
+//            String accountBalance = results.getString("balance");
+//            balance.setBalance(new BigDecimal(accountBalance));
+//        }
+//        return balance;
+//    }
 
     @Override
     public Account getAccountByUserId(int userId) {
@@ -56,14 +56,27 @@ public class JdbcAccountDao implements AccountDao{
         return account;
     }
 
-    private Account mapRowToAccount(SqlRowSet results) {
-        int accountId = results.getInt("account_id");
-        int userAccountId = results.getInt("user_id");
+    @Override
+    public List<Account> getAllAccounts() {
+        List<Account> accounts = new ArrayList<>();
+        String sql = "SELECT * FROM accounts";
 
-        Balance balance = new Balance();
-        String accountBalance = results.getString("balance");
-        balance.setBalance(new BigDecimal(accountBalance));
-        return new Account(accountId,userAccountId,BigDecimal balance);
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while (results.next()){
+            Account accountResults = mapRowToAccount(results);
+            accounts.add(accountResults);
+        }
+        return accounts;
+    }
+
+
+
+    private Account mapRowToAccount(SqlRowSet rowSet) {
+        Account account = new Account();
+        account.setAccountId(rowSet.getInt("accountId"));
+        account.setUserId(rowSet.getInt("user_id"));
+        account.getBalance(rowSet.getBigDecimal("balance"));
+        return account;
     }
 
 }
