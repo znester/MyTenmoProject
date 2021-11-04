@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class JdbcAccountDao implements AccountDao{
+public class JdbcAccountDao implements AccountDao {
 
 
     private JdbcTemplate jdbcTemplate;
@@ -26,7 +26,7 @@ public class JdbcAccountDao implements AccountDao{
                 "JOIN users ON users.user_id = accounts.user_id " +
                 "WHERE users.username = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
-        if(results.next()){
+        if (results.next()) {
             account = mapRowToAccount(results);
         }
         return account;
@@ -37,24 +37,24 @@ public class JdbcAccountDao implements AccountDao{
         Account account = null;
         String sql = "SELECT account_id, user_id, balance FROM accounts WHERE account_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, accountId);
-        if (results.next()){
+        if (results.next()) {
             account = mapRowToAccount(results);
         }
         return account;
     }
 
-    @Override
-    public List<Account> getAllAccounts() {
-        List<Account> accounts = new ArrayList<>();
-        String sql = "SELECT account_id, user_id, balance FROM accounts;";
-
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-        while (results.next()){
-            Account accountResults = mapRowToAccount(results);
-            accounts.add(accountResults);
-        }
-        return accounts;
-    }
+//    @Override
+//    public List<Account> getAllAccounts() {
+//        List<Account> accounts = new ArrayList<>();
+//        String sql = "SELECT account_id, user_id, balance FROM accounts;";
+//
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+//        while (results.next()){
+//            Account accountResults = mapRowToAccount(results);
+//            accounts.add(accountResults);
+//        }
+//        return accounts;
+//    }
 
 
 

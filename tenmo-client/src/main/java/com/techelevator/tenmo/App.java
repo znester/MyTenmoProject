@@ -2,10 +2,12 @@ package com.techelevator.tenmo;
 
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.AuthenticatedUser;
+import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.UserCredentials;
 import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.AuthenticationServiceException;
+import com.techelevator.tenmo.services.TransferService;
 import com.techelevator.view.ConsoleService;
 
 import java.security.Principal;
@@ -32,6 +34,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
     private AuthenticationService authenticationService;
     //TODO*****************
     private AccountService accountService;
+    private TransferService transferService;
 
     public static void main(String[] args) {
     	App app = new App(new ConsoleService(System.in, System.out), new AuthenticationService(API_BASE_URL));
@@ -51,6 +54,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		registerAndLogin();
 		//TODO*************************************************************//
 		this.accountService = new AccountService(API_BASE_URL, currentUser);
+		this.transferService = new TransferService(API_BASE_URL, currentUser);
 		mainMenu();
 	}
 
@@ -83,7 +87,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
-		
+		Transfer transfer = transferService.getTransferByUsername();
 	}
 
 	private void viewPendingRequests() {
