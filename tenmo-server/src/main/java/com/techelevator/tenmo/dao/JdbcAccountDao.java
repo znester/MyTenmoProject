@@ -58,7 +58,7 @@ public class JdbcAccountDao implements AccountDao {
         String sql = "UPDATE accounts " +
                 "SET balance = balance + ? " +
                 "WHERE account_id = ?; ";
-        
+        jdbcTemplate.update(sql, amount, account.getAccountId());
     }
 
     @Override
@@ -66,6 +66,7 @@ public class JdbcAccountDao implements AccountDao {
         String sql = "UPDATE accounts " +
                 "SET balance = balance - ? " +
                 "WHERE account_id = ?; ";
+        jdbcTemplate.update(sql,amount, account.getAccountId());
     }
 
 

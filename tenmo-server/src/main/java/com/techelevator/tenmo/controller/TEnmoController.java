@@ -35,12 +35,14 @@ public class TEnmoController {
         return accountDao.getAccountByUsername(principal.getName());
     }
 
-    //USE CASE #4 - AUTHENTICATED USER ABLE TO SEND TRANSFER TO ANOTHER REGISTERED USER
-    @RequestMapping(path = "/accounts/transfers/{account_from}/{account_to}/{amount}", method = RequestMethod.PUT)
-    public void transferToUser(@RequestBody Transfer transfer, @PathVariable int account_from,
-                               @PathVariable int account_to, @PathVariable BigDecimal amount) {
-        transferDao.requestTransfer(account_from, account_to, amount);
-    }
+//    //USE CASE #4 - AUTHENTICATED USER ABLE TO SEND TRANSFER TO ANOTHER REGISTERED USER
+//    @RequestMapping(path = "/accounts/transfers/{account_from}/{account_to}/{amount}", method = RequestMethod.PUT)
+//    public void transferToUser(@RequestBody Transfer transfer, @PathVariable int account_from,
+//                               @PathVariable int account_to, @PathVariable BigDecimal amount) {
+//        transferDao.requestTransfer(account_from, account_to, amount);
+//    }
+    
+
 
     //USE CASE #5 - AUTHENTICATED USER ABLE TO SEE TRANSFER HISTORY
     @RequestMapping(path = "/accounts/users/transfers", method = RequestMethod.GET)
