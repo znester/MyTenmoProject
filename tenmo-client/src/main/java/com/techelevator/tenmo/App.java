@@ -11,6 +11,7 @@ import com.techelevator.tenmo.services.TransferService;
 import com.techelevator.view.ConsoleService;
 
 import java.security.Principal;
+import java.util.List;
 
 public class App {
 
@@ -87,7 +88,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
-		Transfer transfer = transferService.getTransferByUsername();
+		Transfer[] transfer = transferService.getTransfersByUsername();
 	}
 
 	private void viewPendingRequests() {

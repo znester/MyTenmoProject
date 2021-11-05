@@ -11,13 +11,11 @@ import java.util.List;
 @Component
 public class JdbcAccountDao implements AccountDao {
 
-
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public JdbcAccountDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
 
     @Override
     public Account getAccountByUsername(String username) {
@@ -42,21 +40,6 @@ public class JdbcAccountDao implements AccountDao {
         }
         return account;
     }
-
-//    @Override
-//    public List<Account> getAllAccounts() {
-//        List<Account> accounts = new ArrayList<>();
-//        String sql = "SELECT account_id, user_id, balance FROM accounts;";
-//
-//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-//        while (results.next()){
-//            Account accountResults = mapRowToAccount(results);
-//            accounts.add(accountResults);
-//        }
-//        return accounts;
-//    }
-
-
 
     private Account mapRowToAccount(SqlRowSet rowSet) {
         Account account = new Account();

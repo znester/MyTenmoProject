@@ -9,11 +9,7 @@ import java.util.List;
 @Component
 public interface AccountDao {
 
-    //Account getBalance(String user);
-
     Account getAccountByUsername(String username);
     Account getAccountByAccountId(int accountId);
-
-//    List<Account> getAllAccounts();
 
 }

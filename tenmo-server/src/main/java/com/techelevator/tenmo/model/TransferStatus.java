@@ -24,5 +24,13 @@ public class TransferStatus {
     public void setTransferStatusDesc(String transferStatusDesc) {
         this.transferStatusDesc = transferStatusDesc;
     }
+
+    @Override
+    public String toString() {
+        return "TransferStatus{" +
+                "transferStatusId=" + transferStatusId +
+                ", transferStatusDesc='" + transferStatusDesc + '\'' +
+                '}';
+    }
 }
 

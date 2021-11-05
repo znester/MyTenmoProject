@@ -24,4 +24,12 @@ public class TransferType {
     public void setTransfer_type_desc(String transfer_type_desc) {
         this.transfer_type_desc = transfer_type_desc;
     }
+
+    @Override
+    public String toString() {
+        return "TransferType{" +
+                "transferTypeID=" + transferTypeID +
+                ", transfer_type_desc='" + transfer_type_desc + '\'' +
+                '}';
+    }
 }

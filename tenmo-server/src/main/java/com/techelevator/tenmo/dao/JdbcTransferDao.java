@@ -6,12 +6,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 @Component
 public class JdbcTransferDao implements TransferDao {
 
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public JdbcTransferDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -19,7 +20,7 @@ public class JdbcTransferDao implements TransferDao {
 
 
     @Override
-    public List<Transfer> getTransferByUsername(String username) {
+    public List<Transfer> getTransfersByUsername(String username) {
         List <Transfer> transfers = new ArrayList<>();
         String sql = "SELECT t.transfer_id, t.transfer_type_id, t.transfer_status_id, t.account_from, t.account_to, t.amount \n" +
                 "FROM transfers t " +
@@ -47,6 +48,22 @@ public class JdbcTransferDao implements TransferDao {
             transfer = mapRowToTransfer(results);
         }
         return transfer;
+    }
+
+    @Override
+    public Transfer transferToUser(int userFromId, int userToId, BigDecimal amount) {
+        return null;
+    }
+
+    //Extras
+    @Override
+    public Transfer requestTransfer(int userFromId, int userToId, BigDecimal amount) {
+        return null;
+    }
+
+    @Override
+    public List<Transfer> getPendingTransfersByUserId(int userId) {
+        return null;
     }
 
     private Transfer mapRowToTransfer(SqlRowSet rowSet) {
