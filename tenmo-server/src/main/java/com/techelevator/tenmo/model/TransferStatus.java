@@ -9,6 +9,9 @@ public class TransferStatus {
         this.transferStatusDesc = transferStatusDesc;
     }
 
+    public TransferStatus() {
+    }
+
     public int getTransferStatusId() {
         return transferStatusId;
     }

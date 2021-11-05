@@ -100,9 +100,11 @@ public class Transfer {
                 "transferID=" + transferID +
                 ", transferTypeId=" + transferTypeId +
                 ", transferStatusId=" + transferStatusId +
-                ", account_from=" + accountFrom +
-                ", account_to=" + accountTo +
+                ", accountFrom=" + accountFrom +
+                ", accountTo=" + accountTo +
                 ", amount=" + amount +
+                ", accountFromId=" + accountFromId +
+                ", accountToId=" + accountToId +
                 '}';
     }
 }

@@ -11,11 +11,13 @@ import java.util.List;
 public interface AccountDao {
 
     Account getAccountByUsername(String username);
+
     Account getAccountByAccountId(int accountId);
 
     List<Account> getAllAccounts();
 
     void withdraw(BigDecimal amount, Account account);
+
     void deposit(BigDecimal amount, Account account);
 
 }
