@@ -57,8 +57,9 @@ public class JdbcTransferDao implements TransferDao {
         String sql = "INSERT INTO transfers (transfer_type_id, transfer_status_id, account_from, account_to, amount)" +
                 "VALUES (2,2,?,?,?);" ;
         jdbcTemplate.update(sql, fromAccount.getAccountId(), toAccount.getAccountId(), amount);
-
     }
+
+
 
 
 
