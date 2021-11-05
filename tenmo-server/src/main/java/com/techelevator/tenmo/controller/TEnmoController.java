@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
@@ -26,11 +27,19 @@ public class TEnmoController {
         this.userDao = userDao;
         this.transferDao = transferDao;
     }
+
     //USE CASE #3 - AUTHENTICATED USER ABLE TO SEE ACCOUNT BALANCE
     @RequestMapping(path = "/accounts/balance", method = RequestMethod.GET)
     @ResponseBody
     public Account accountBalance(Principal principal) {
         return accountDao.getAccountByUsername(principal.getName());
+    }
+
+    //USE CASE #4 - AUTHENTICATED USER ABLE TO SEND TRANSFER TO ANOTHER REGISTERED USER
+    @RequestMapping(path = "/accounts/transfers/{account_from}/{account_to}/{amount}", method = RequestMethod.PUT)
+    public void transferToUser(@RequestBody Transfer transfer, @PathVariable int account_from,
+                               @PathVariable int account_to, @PathVariable BigDecimal amount) {
+        transferDao.requestTransfer(account_from, account_to, amount);
     }
 
     //USE CASE #5 - AUTHENTICATED USER ABLE TO SEE TRANSFER HISTORY
@@ -40,14 +49,16 @@ public class TEnmoController {
         return transferDao.getTransfersByUsername(principal.getName());
     }
 
+
+
     //THIS IS JUST FOR TESTING PURPOSES
     @RequestMapping(path = "/accounts/users/{username}", method = RequestMethod.GET)
     public User user(@PathVariable String username) {
         return userDao.findByUsername(username);
     }
-    //USE CASE #4 - AUTHENTICATED USER ABLE TO SEND TRANSFER TO ANOTHER REGISTERED USER
 
-    //USE CASE #6 - AUTHENTICATED USER ABLE TO SEE DETAILS OF TRANSFER BY TRANSFER_ID
-
-
+    @RequestMapping(path = "/accounts", method = RequestMethod.GET)
+    public List<Account> accounts() {
+        return accountDao.getAllAccounts();
+    }
 }

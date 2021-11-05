@@ -13,9 +13,11 @@ import java.util.List;
 public class JdbcTransferDao implements TransferDao {
 
     private final JdbcTemplate jdbcTemplate;
+    private final AccountDao accountDao;
 
-    public JdbcTransferDao(JdbcTemplate jdbcTemplate) {
+    public JdbcTransferDao(JdbcTemplate jdbcTemplate, AccountDao accountDao) {
         this.jdbcTemplate = jdbcTemplate;
+        this.accountDao = accountDao;
     }
 
 
@@ -51,9 +53,11 @@ public class JdbcTransferDao implements TransferDao {
     }
 
     @Override
-    public Transfer transferToUser(int userFromId, int userToId, BigDecimal amount) {
-        return null;
+    public void transferToUser(Account fromAccount, Account toAccount, BigDecimal amount) {
+
     }
+
+
 
     //Extras
     @Override

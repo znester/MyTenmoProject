@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,33 @@ public class JdbcAccountDao implements AccountDao {
         }
         return account;
     }
+
+    @Override
+    public List<Account> getAllAccounts() {
+        List<Account> accounts = new ArrayList<>();
+        String sql = "SELECT account_id, user_id, balance FROM accounts; ";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while (results.next()) {
+            accounts.add(mapRowToAccount(results));
+        }
+        return accounts;
+    }
+
+    @Override
+    public void sendMoney(BigDecimal amount, Account account) {
+        String sql = "UPDATE accounts " +
+                "SET balance = balance + ? " +
+                "WHERE account_id = ?; ";
+        
+    }
+
+    @Override
+    public void receiveMoney(BigDecimal amount, Account account) {
+        String sql = "UPDATE accounts " +
+                "SET balance = balance - ? " +
+                "WHERE account_id = ?; ";
+    }
+
 
     private Account mapRowToAccount(SqlRowSet rowSet) {
         Account account = new Account();
