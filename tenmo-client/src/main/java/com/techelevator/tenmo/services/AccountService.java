@@ -2,6 +2,7 @@ package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.AuthenticatedUser;
+import io.cucumber.java.en_old.Ac;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -10,6 +11,9 @@ import org.springframework.web.client.RestTemplate;
 
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 //import org.springframework.security.access.prepost.PreAuthorize;
 
 
@@ -39,5 +43,10 @@ public class AccountService {
         System.out.println("Your account balance is : $" + account.getBalance());
 
         return account;
+    }
+
+    public List<Account> allAccounts(){
+        Account[] allAccounts = restTemplate.exchange(baseUrl + "/accounts", HttpMethod.GET, makeAuthEntity(), Account[].class).getBody();
+        return Arrays.asList(allAccounts);
     }
 }

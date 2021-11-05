@@ -46,16 +46,20 @@ public class JdbcAccountDao implements AccountDao {
     @Override
     public List<Account> getAllAccounts() {
         List<Account> accounts = new ArrayList<>();
-        String sql = "SELECT account_id, user_id, balance FROM accounts; ";
+        String sql = "SELECT account_id, accounts.user_id, balance, username FROM accounts " +
+                "JOIN users ON accounts.user_id = users.user_id ; ";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
-            accounts.add(mapRowToAccount(results));
+            Account account = mapRowToAccount(results);
+            account.setUsername(results.getString("username"));
+            accounts.add(account);
+
         }
         return accounts;
     }
 
     @Override
-    public void sendMoney(BigDecimal amount, Account account) {
+    public void deposit(BigDecimal amount, Account account) {
         String sql = "UPDATE accounts " +
                 "SET balance = balance + ? " +
                 "WHERE account_id = ?; ";
@@ -63,7 +67,7 @@ public class JdbcAccountDao implements AccountDao {
     }
 
     @Override
-    public void receiveMoney(BigDecimal amount, Account account) {
+    public void withdraw(BigDecimal amount, Account account) {
         String sql = "UPDATE accounts " +
                 "SET balance = balance - ? " +
                 "WHERE account_id = ?; ";

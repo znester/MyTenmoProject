@@ -1,5 +1,7 @@
 package com.techelevator.tenmo.model;
 
+
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -7,17 +9,22 @@ public class Transfer {
     private int transferID;
     private int transferTypeId;
     private int transferStatusId;
-    private int account_from;
-    private int account_to;
+    private Account accountFrom;
+    private Account accountTo;
     private BigDecimal amount;
+    private int accountFromId;
+    private int accountToId;
 
-    public Transfer(int transferID, int transferTypeId, int transferStatusId, int account_from, int account_to, BigDecimal amount) {
+
+    public Transfer(int transferID, int transferTypeId, int transferStatusId, Account accountFrom, Account accountTo, BigDecimal amount, int accountFromId, int accountToId) {
         this.transferID = transferID;
         this.transferTypeId = transferTypeId;
         this.transferStatusId = transferStatusId;
-        this.account_from = account_from;
-        this.account_to = account_to;
+        this.accountFrom = accountFrom;
+        this.accountTo = accountTo;
         this.amount = amount;
+        this.accountFromId = accountFromId;
+        this.accountToId = accountToId;
     }
 
     public Transfer() {
@@ -47,28 +54,56 @@ public class Transfer {
         this.transferStatusId = transferStatusId;
     }
 
-    public int getAccount_from() {
-        return account_from;
-    }
-
-    public void setAccount_from(int account_from) {
-        this.account_from = account_from;
-    }
-
-    public int getAccount_to() {
-        return account_to;
-    }
-
-    public void setAccount_to(int account_to) {
-        this.account_to = account_to;
-    }
-
     public BigDecimal getAmount() {
         return amount;
     }
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public Account getAccountFrom() {
+        return accountFrom;
+    }
+
+    public void setAccountFrom(Account accountFrom) {
+        this.accountFrom = accountFrom;
+    }
+
+    public Account getAccountTo() {
+        return accountTo;
+    }
+
+    public void setAccountTo(Account accountTo) {
+        this.accountTo = accountTo;
+    }
+
+    public int getAccountFromId() {
+        return accountFromId;
+    }
+
+    public void setAccountFromId(int accountFromId) {
+        this.accountFromId = accountFromId;
+    }
+
+    public int getAccountToId() {
+        return accountToId;
+    }
+
+    public void setAccountToId(int accountToId) {
+        this.accountToId = accountToId;
+    }
+
+    @Override
+    public String toString() {
+        return "Transfer{" +
+                "transferID=" + transferID +
+                ", transferTypeId=" + transferTypeId +
+                ", transferStatusId=" + transferStatusId +
+                ", account_from=" + accountFrom +
+                ", account_to=" + accountTo +
+                ", amount=" + amount +
+                '}';
     }
 }
 

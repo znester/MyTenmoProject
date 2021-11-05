@@ -47,4 +47,9 @@ public class TransferService {
         //use exchange for transfer method
         //one method for request one for make transfer
     }
+
+    public void makeTransfer(Transfer transfer){
+        HttpEntity<Transfer> postEntity = new HttpEntity<>(transfer, makeAuthEntity().getHeaders());
+        restTemplate.exchange(baseUrl + "/transfers/makeTransfer", HttpMethod.POST, postEntity, Transfer.class);
+    }
 }

@@ -10,6 +10,7 @@ import com.techelevator.tenmo.services.AuthenticationServiceException;
 import com.techelevator.tenmo.services.TransferService;
 import com.techelevator.view.ConsoleService;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 
@@ -36,6 +37,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
     //TODO*****************
     private AccountService accountService;
     private TransferService transferService;
+    private List<Account> accountList;
 
     public static void main(String[] args) {
     	App app = new App(new ConsoleService(System.in, System.out), new AuthenticationService(API_BASE_URL));
@@ -56,6 +58,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		//TODO*************************************************************//
 		this.accountService = new AccountService(API_BASE_URL, currentUser);
 		this.transferService = new TransferService(API_BASE_URL, currentUser);
+		this.accountList = accountService.allAccounts();
 		mainMenu();
 	}
 
@@ -98,8 +101,27 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 	private void sendBucks() {
 		// TODO Auto-generated method stub
-		
+	console.displayOtherAccounts(accountList, currentUser.getUser().getUsername());
+		int userId = console.getTransferUserId();
+		BigDecimal cash = console.transferAmount();
+		Account accountFrom = filterAccountByUserid(currentUser.getUser().getId(), accountList);
+		Account accountTo = filterAccountByUserid(userId, accountList);
+		if(accountFrom.getBalance().subtract(cash).compareTo(BigDecimal.ZERO) < 0){
+			console.insufficientFunds();
+			return;
+		} else {
+		if (!accountList.contains(accountTo)){
+			console.wrongUser();
+			return;
+		}
+		Transfer transfer = new Transfer();
+		transfer.setAmount(cash);
+		transfer.setAccountTo(accountTo);
+		transfer.setAccountFrom(accountFrom);
+		transferService.makeTransfer(transfer);
+		}
 	}
+
 
 	private void requestBucks() {
 		// TODO Auto-generated method stub
@@ -165,4 +187,16 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		String password = console.getUserInput("Password");
 		return new UserCredentials(username, password);
 	}
+
+	private Account filterAccountByUserid(int userId, List<Account> userAccountList){
+    	Account account = null;
+    	for(Account currentAccount : userAccountList){
+    		if (currentAccount.getUserId() == userId){
+    			account = currentAccount;
+			}
+		}
+
+    	return account;
+	}
+
 }

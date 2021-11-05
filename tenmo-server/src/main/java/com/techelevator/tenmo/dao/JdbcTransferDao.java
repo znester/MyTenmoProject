@@ -54,14 +54,12 @@ public class JdbcTransferDao implements TransferDao {
 
     @Override
     public void transferToUser(Account fromAccount, Account toAccount, BigDecimal amount) {
-        String sql = "INSERT INTO transfers (transfer_type_id, transfer_status_id, account_from, account_to, amount)" +
-                "VALUES (2,2,?,?,?);" ;
+        String sql = "INSERT INTO transfers (transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
+                "Values (default, 2, 2, ?, ?, ?);";
         jdbcTemplate.update(sql, fromAccount.getAccountId(), toAccount.getAccountId(), amount);
+        accountDao.deposit(amount, toAccount);
+        accountDao.withdraw(amount,fromAccount);
     }
-
-
-
-
 
     //Extras
     @Override
@@ -79,8 +77,8 @@ public class JdbcTransferDao implements TransferDao {
         transfer.setTransferID(rowSet.getInt("transfer_id"));
         transfer.setTransferTypeId(rowSet.getInt("transfer_type_id"));
         transfer.setTransferStatusId(rowSet.getInt("transfer_status_id"));
-        transfer.setAccount_from(rowSet.getInt("account_from"));
-        transfer.setAccount_to(rowSet.getInt("account_to"));
+        transfer.setAccountFromId(rowSet.getInt("account_from"));
+        transfer.setAccountToId(rowSet.getInt("account_to"));
         transfer.setAmount(rowSet.getBigDecimal("amount"));
         return transfer;
     }

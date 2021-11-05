@@ -1,9 +1,15 @@
 package com.techelevator.view;
 
 
+import com.techelevator.tenmo.model.Account;
+import io.cucumber.java.bs.A;
+import io.cucumber.java.en_old.Ac;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleService {
@@ -72,5 +78,47 @@ public class ConsoleService {
 			}
 		} while(result == null);
 		return result;
+	}
+
+	public void displayOtherAccounts(List<Account> accounts, String username) {
+		out.println("-------------------------------------------");
+		out.println("Users");
+		out.printf("%-30s", "ID");
+		out.printf("%-10s", "Name");
+		out.println();
+		out.println("-------------------------------------------");
+		for (int i = 0; i < accounts.size(); i++) {
+			if (!accounts.get(i).getUsername().equals(username)) {
+				out.printf("%-30s", accounts.get(i).getUserId());
+				out.printf("%-10s", accounts.get(i).getUsername());
+			}
+		}
+		out.println("-------------------------------------------");
+		out.flush();
+	}
+	public Integer getTransferUserId(){
+		out.println("Write User Id you would like to send money to...");
+		int userInput = Integer.parseInt(in.nextLine());
+		out.flush();
+		return userInput;
+	}
+
+	public BigDecimal transferAmount(){
+		out.println("Amount of money you will send. . .");
+		double transferredMoney = Double.parseDouble(in.nextLine());
+		BigDecimal cashTransferred = new BigDecimal(transferredMoney);
+		out.flush();
+		return cashTransferred;
+	}
+
+	public void insufficientFunds(){
+		out.println("____________________________________________");
+		out.println("insufficientFunds");
+		out.println("--------------------------------------------");
+	}
+	public void wrongUser(){
+		out.println("____________________________________________");
+		out.println("wrongUser");
+		out.println("--------------------------------------------");
 	}
 }
