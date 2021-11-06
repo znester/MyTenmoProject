@@ -19,5 +19,7 @@ public interface TransferDao {
 
     List<Transfer> getPendingTransfersByUserId(int userId);
 
+    List<Transfer> getTransfersByUserId(int userId);
+
 
 }

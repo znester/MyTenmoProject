@@ -14,7 +14,6 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-//@RequestMapping("")
 //@PreAuthorize("isAuthenticated()")
 
 public class TEnmoController {
@@ -28,7 +27,7 @@ public class TEnmoController {
         this.transferDao = transferDao;
     }
 
-    //USE CASE #3 - AUTHENTICATED USER ABLE TO SEE ACCOUNT BALANCE
+    //GET CURRENT BALANCE BY PRINCIPAL
     @RequestMapping(path = "/accounts/balance", method = RequestMethod.GET)
     @ResponseBody
     public Account accountBalance(Principal principal) {
@@ -36,12 +35,40 @@ public class TEnmoController {
     }
 
 
-    //USE CASE #5 - AUTHENTICATED USER ABLE TO SEE TRANSFER HISTORY
+    //GET TRANSFER HISTORY BY PRINCIPAL USERNAME
     @RequestMapping(path = "/accounts/users/transfers", method = RequestMethod.GET)
     @ResponseBody
     public List<Transfer> getTransfersByUsername(Principal principal){
         return transferDao.getTransfersByUsername(principal.getName());
     }
+    //GET TRANSFER HISTORY BY PRINCIPAL USERID
+    @RequestMapping(path = "/accounts/users/transfers", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Transfer> getTransfersByUserId(Principal principal){
+        String name = principal.getName();
+        int userID = userDao.findIdByUsername(name);
+        return transferDao.getTransfersByUserId(userID);
+    }
+
+    //POST TRANSFER BY PRINCIPAL
+    @RequestMapping(path = "/transfers/makeTransfer", method = RequestMethod.POST)
+    public void makeTransfer(@RequestBody Transfer transfer ){
+        transferDao.transferToUser(transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
+    }
+
+    //GET USER BY USERNAME
+    @RequestMapping(path = "/accounts/users/{username}", method = RequestMethod.GET)
+    public User user(@PathVariable String username) {
+        return userDao.findByUsername(username);
+    }
+
+    //GET ALL ACCOUNTS
+    @RequestMapping(path = "/accounts", method = RequestMethod.GET)
+    public List<Account> accounts() {
+        return accountDao.getAllAccounts();
+    }
+}
+
 
 //    //POST TRANSFER
 //    @RequestMapping(path = "accounts/transfers", method = RequestMethod.POST)
@@ -49,26 +76,8 @@ public class TEnmoController {
 //        return transferDao.requestTransfer(transfer.getAccount_from(), transfer.getAccount_to(), transfer.getAmount());
 //    }
 
-    //SEND MONEY/RECEIVE (UPDATE)
+//SEND MONEY/RECEIVE (UPDATE)
 //    @RequestMapping(path = "/accounts/users/{username}", method = RequestMethod.PUT)
 //    public Account sendMoney(@RequestBody Account myAccount, BigDecimal amount, @PathVariable String username) {
 //        accountDao.sendMoney(myAccount, amount, username);
 //    }
-
-    @RequestMapping(path = "/transfers/makeTransfer", method = RequestMethod.POST)
-    public void makeTransfer(@RequestBody Transfer transfer ){
-        transferDao.transferToUser(transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
-    }
-
-
-    //THIS IS JUST FOR TESTING PURPOSES
-    @RequestMapping(path = "/accounts/users/{username}", method = RequestMethod.GET)
-    public User user(@PathVariable String username) {
-        return userDao.findByUsername(username);
-    }
-
-    @RequestMapping(path = "/accounts", method = RequestMethod.GET)
-    public List<Account> accounts() {
-        return accountDao.getAllAccounts();
-    }
-}

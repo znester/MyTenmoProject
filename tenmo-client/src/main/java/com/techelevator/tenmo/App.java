@@ -91,7 +91,8 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
-		Transfer[] transfer = transferService.getTransfersByUsername();
+		List<Transfer> transfer = transferService.getTransfersByUserId();
+		console.transferHistory(transfer, currentUser.getUser().getId());
 	}
 
 	private void viewPendingRequests() {

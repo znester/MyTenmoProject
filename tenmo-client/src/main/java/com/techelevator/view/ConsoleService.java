@@ -2,6 +2,8 @@ package com.techelevator.view;
 
 
 import com.techelevator.tenmo.model.Account;
+import com.techelevator.tenmo.model.Transfer;
+import com.techelevator.tenmo.model.User;
 import io.cucumber.java.bs.A;
 import io.cucumber.java.en_old.Ac;
 
@@ -81,30 +83,30 @@ public class ConsoleService {
 	}
 
 	public void displayOtherAccounts(List<Account> accounts, String username) {
-		out.println("-------------------------------------------");
+		out.println("---------------------------------------------");
 		out.println("Users");
 		out.printf("%-30s", "ID");
-		out.printf("%-10s", "Name");
+		out.printf("%-10s %n", "Name");
 		out.println();
-		out.println("-------------------------------------------");
+		out.println("---------------------------------------------");
 		for (int i = 0; i < accounts.size(); i++) {
 			if (!accounts.get(i).getUsername().equals(username)) {
 				out.printf("%-30s", accounts.get(i).getUserId());
-				out.printf("%-10s", accounts.get(i).getUsername());
+				out.printf("%-10s %n", accounts.get(i).getUsername());
 			}
 		}
-		out.println("-------------------------------------------");
+		out.println("---------------------------------------------");
 		out.flush();
 	}
 	public Integer getTransferUserId(){
-		out.println("Write User Id you would like to send money to...");
+		out.println("Write User Id you would like to send money to >>> ");
 		int userInput = Integer.parseInt(in.nextLine());
 		out.flush();
 		return userInput;
 	}
 
 	public BigDecimal transferAmount(){
-		out.println("Amount of money you will send. . .");
+		out.println("Amount of money you will send >>> ");
 		double transferredMoney = Double.parseDouble(in.nextLine());
 		BigDecimal cashTransferred = new BigDecimal(transferredMoney);
 		out.flush();
@@ -112,13 +114,31 @@ public class ConsoleService {
 	}
 
 	public void insufficientFunds(){
-		out.println("____________________________________________");
-		out.println("insufficientFunds");
-		out.println("--------------------------------------------");
+		out.println("---------------------------------------------");
+		out.println("Insufficient Funds");
+		out.println("---------------------------------------------");
 	}
 	public void wrongUser(){
-		out.println("____________________________________________");
-		out.println("wrongUser");
-		out.println("--------------------------------------------");
+		out.println("---------------------------------------------");
+		out.println("User Does Not Exist");
+		out.println("---------------------------------------------");
 	}
+
+//	public void transferHistory(List<Transfer> transfers, int userId) {
+//		User user = new User();
+//		out.println("---------------------------------------------");
+//		out.println("Users");
+//		out.printf("%-30s", "ID");
+//		out.printf("%-10s %n", "Name");
+//		out.println();
+//		out.println("---------------------------------------------");
+//		for (int i = 0; i < transfers.size(); i++) {
+//			if (transfers.get(i).getAccountFromId()==userId || transfers.get(i).getAccountToId()==userId) {
+//				out.printf("%-30s", transfers.get(i).getAccountFromId());
+//				out.printf("%-10s %n", transfers.get(i).getAccountToId());
+//			}
+//		}
+//		out.println("---------------------------------------------");
+//		out.flush();
+//	}
 }

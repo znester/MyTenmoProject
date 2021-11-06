@@ -12,6 +12,7 @@ import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TransferService {
@@ -31,21 +32,11 @@ public class TransferService {
         headers.setBearerAuth(currentUser.getToken());
         return new HttpEntity<>(headers);
     }
-    public Transfer[] getTransfersByUsername(){
-        Transfer[] transfers = null;
-        try {
-            ResponseEntity<Transfer[]> response = restTemplate.exchange(baseUrl + "accounts/user/transfers", HttpMethod.GET,
-                    makeAuthEntity(), Transfer[].class);
-            transfers = response.getBody();
-        } catch(RestClientResponseException | ResourceAccessException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return transfers;
 
-        //pass in transfer into http entity
-        //param = transfer
-        //use exchange for transfer method
-        //one method for request one for make transfer
+    public List<Transfer> getTransfersByUserId(){
+        Transfer[] transfers = restTemplate.exchange(baseUrl + "/accounts/users/transfers",
+                HttpMethod.GET, makeAuthEntity(), Transfer[].class).getBody();
+        return Arrays.asList(transfers);
     }
 
     public void makeTransfer(Transfer transfer){
@@ -53,3 +44,10 @@ public class TransferService {
         restTemplate.exchange(baseUrl + "/transfers/makeTransfer", HttpMethod.POST, postEntity, Transfer.class);
     }
 }
+
+
+
+//pass in transfer into http entity
+//param = transfer
+//use exchange for transfer method
+//one method for request one for make transfer
