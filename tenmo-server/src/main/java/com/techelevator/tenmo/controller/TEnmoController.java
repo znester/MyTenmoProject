@@ -59,6 +59,10 @@ public class TEnmoController {
     public List<Account> accounts() {
         return accountDao.getAllAccounts();
     }
+
+    //GET ALL TRANSFERS
+    @RequestMapping(path= "/transfers/allTransfers", method = RequestMethod.GET)
+    public List<Transfer> transfers(){return transferDao.getAllTransfers();}
 }
 
 

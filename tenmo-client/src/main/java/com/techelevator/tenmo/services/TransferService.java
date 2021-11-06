@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class TransferService {
 
@@ -37,6 +38,13 @@ public class TransferService {
         Transfer[] transfers = restTemplate.exchange(baseUrl + "/accounts/users/transfers",
                 HttpMethod.GET, makeAuthEntity(), Transfer[].class).getBody();
         return Arrays.asList(transfers);
+    }
+
+    //GET ALL TRANSFERS
+    public List<Transfer> getAllTransfers(){
+        Transfer[] allTransfers = restTemplate.exchange(baseUrl + "/transfers/allTransfers",
+                HttpMethod.GET, makeAuthEntity(), Transfer[].class).getBody();
+        return Arrays.asList(allTransfers);
     }
 
     public void makeTransfer(Transfer transfer){

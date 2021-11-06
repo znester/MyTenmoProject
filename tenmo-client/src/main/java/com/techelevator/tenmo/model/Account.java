@@ -7,12 +7,16 @@ public class Account {
     private int userId;
     private String username;
     private BigDecimal balance;
+    private int accountFrom;
+    private int accountTo;
 
-    public Account(int accountId, int userId, BigDecimal balance, String username) {
+    public Account(int accountId, int userId, BigDecimal balance, String username, int accountFrom, int accountTo) {
         this.accountId = accountId;
         this.userId = userId;
         this.balance = balance;
         this.username = username;
+        this.accountFrom = accountFrom;
+        this.accountTo = accountTo;
     }
 
     public Account() {
@@ -50,6 +54,22 @@ public class Account {
         this.username = username;
     }
 
+    public int getAccountFrom() {
+        return accountFrom;
+    }
+
+    public void setAccountFrom(int accountFrom) {
+        this.accountFrom = accountFrom;
+    }
+
+    public int getAccountTo() {
+        return accountTo;
+    }
+
+    public void setAccountTo(int accountTo) {
+        this.accountTo = accountTo;
+    }
+
     @Override
     public String toString() {
         return "Account{" +
@@ -57,6 +77,8 @@ public class Account {
                 ", userId=" + userId +
                 ", username='" + username + '\'' +
                 ", balance=" + balance +
+                ", accountFrom=" + accountFrom +
+                ", accountTo=" + accountTo +
                 '}';
     }
 }

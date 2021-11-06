@@ -14,6 +14,8 @@ public interface TransferDao {
 
     void transferToUser(Account fromAccount, Account toAccount, BigDecimal amount);
 
+    public List<Transfer> getAllTransfers();
+
     //Extras
     Transfer requestTransfer(int userFromId, int userToId, BigDecimal amount);
 

@@ -6,6 +6,7 @@ import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.User;
 import io.cucumber.java.bs.A;
 import io.cucumber.java.en_old.Ac;
+import org.springframework.web.client.RestClientResponseException;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -18,10 +19,15 @@ public class ConsoleService {
 
 	private PrintWriter out;
 	private Scanner in;
+	private User user;
 
 	public ConsoleService(InputStream input, OutputStream output) {
 		this.out = new PrintWriter(output, true);
 		this.in = new Scanner(input);
+	}
+
+	public ConsoleService(User user) {
+		this.user = user;
 	}
 
 	public Object getChoiceFromOptions(Object[] options) {
@@ -129,19 +135,19 @@ public class ConsoleService {
 
 	public void transferHistory(List<Transfer> transfers, String username) {
 		out.println("---------------------------------------------");
-		out.println("Your Transaction History");
-		out.printf("%-30s", "ID");
-		out.printf("%-10s %n", "Name");
+		out.println("Transfer History\n");
+		out.printf("%-30s", "Account From Username");
+		out.printf("%-10s %n", "Account To Username");
 		out.println();
 		out.println("---------------------------------------------");
 		try {
 			for (int i = 0; i < transfers.size(); i++) {
 				if (1==1) {
-					out.printf("%-30s", transfers.get(i).getAccountFrom().getUsername());
-					out.printf("%-10s %n", transfers.get(i).getAccountTo().getUsername());
+					out.printf("%-30s", username);
+					out.printf("%-10s %n", "User To");
 				}
 			}
-		}catch (NullPointerException ex){
+		}catch (RestClientResponseException ex){
 			System.out.println("You Have No Transfers");
 		}
 		out.println("---------------------------------------------");
