@@ -127,21 +127,24 @@ public class ConsoleService {
 
 
 
-//	public void transferHistory(List<Transfer> transfers, int userId) {
-//		User user = new User();
-//		out.println("---------------------------------------------");
-//		out.println("Users");
-//		out.printf("%-30s", "ID");
-//		out.printf("%-10s %n", "Name");
-//		out.println();
-//		out.println("---------------------------------------------");
-//		for (int i = 0; i < transfers.size(); i++) {
-//			if (transfers.get(i).getAccountFromId()==userId || transfers.get(i).getAccountToId()==userId) {
-//				out.printf("%-30s", transfers.get(i).getAccountFromId());
-//				out.printf("%-10s %n", transfers.get(i).getAccountToId());
-//			}
-//		}
-//		out.println("---------------------------------------------");
-//		out.flush();
-//	}
+	public void transferHistory(List<Transfer> transfers, String username) {
+		out.println("---------------------------------------------");
+		out.println("Your Transaction History");
+		out.printf("%-30s", "ID");
+		out.printf("%-10s %n", "Name");
+		out.println();
+		out.println("---------------------------------------------");
+		try {
+			for (int i = 0; i < transfers.size(); i++) {
+				if (1==1) {
+					out.printf("%-30s", transfers.get(i).getAccountFrom().getUsername());
+					out.printf("%-10s %n", transfers.get(i).getAccountTo().getUsername());
+				}
+			}
+		}catch (NullPointerException ex){
+			System.out.println("You Have No Transfers");
+		}
+		out.println("---------------------------------------------");
+		out.flush();
+	}
 }

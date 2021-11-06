@@ -42,7 +42,6 @@ public class TEnmoController {
         return transferDao.getTransfersByUsername(principal.getName());
     }
 
-
     //POST TRANSFER BY PRINCIPAL
     @RequestMapping(path = "/transfers/makeTransfer", method = RequestMethod.POST)
     public void makeTransfer(@RequestBody Transfer transfer ){
@@ -71,7 +70,6 @@ public class TEnmoController {
 //        int userID = userDao.findIdByUsername(name);
 //        return transferDao.getTransfersByUserId(userID);
 //    }
-
 
 //    //POST TRANSFER
 //    @RequestMapping(path = "accounts/transfers", method = RequestMethod.POST)

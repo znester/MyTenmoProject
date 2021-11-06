@@ -33,7 +33,7 @@ public class TransferService {
         return new HttpEntity<>(headers);
     }
 
-    public List<Transfer> getTransfersByUserId(){
+    public List<Transfer> getTransferHistory(){
         Transfer[] transfers = restTemplate.exchange(baseUrl + "/accounts/users/transfers",
                 HttpMethod.GET, makeAuthEntity(), Transfer[].class).getBody();
         return Arrays.asList(transfers);
