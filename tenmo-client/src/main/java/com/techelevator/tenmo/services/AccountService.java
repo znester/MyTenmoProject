@@ -14,9 +14,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-//import org.springframework.security.access.prepost.PreAuthorize;
-
-
 
 public class AccountService {
 
@@ -46,7 +43,8 @@ public class AccountService {
     }
 
     public List<Account> allAccounts(){
-        Account[] allAccounts = restTemplate.exchange(baseUrl + "/accounts", HttpMethod.GET, makeAuthEntity(), Account[].class).getBody();
+        Account[] allAccounts = restTemplate.exchange(baseUrl + "/accounts", HttpMethod.GET, makeAuthEntity(),
+                Account[].class).getBody();
         return Arrays.asList(allAccounts);
     }
 }

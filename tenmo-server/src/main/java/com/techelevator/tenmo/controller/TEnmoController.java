@@ -41,14 +41,7 @@ public class TEnmoController {
     public List<Transfer> getTransfersByUsername(Principal principal){
         return transferDao.getTransfersByUsername(principal.getName());
     }
-    //GET TRANSFER HISTORY BY PRINCIPAL USERID
-    @RequestMapping(path = "/accounts/users/transfers", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Transfer> getTransfersByUserId(Principal principal){
-        String name = principal.getName();
-        int userID = userDao.findIdByUsername(name);
-        return transferDao.getTransfersByUserId(userID);
-    }
+
 
     //POST TRANSFER BY PRINCIPAL
     @RequestMapping(path = "/transfers/makeTransfer", method = RequestMethod.POST)
@@ -68,6 +61,16 @@ public class TEnmoController {
         return accountDao.getAllAccounts();
     }
 }
+
+
+//    //GET TRANSFER HISTORY BY PRINCIPAL USERID
+//    @RequestMapping(path = "/accounts/users/transfers", method = RequestMethod.GET)
+//    @ResponseBody
+//    public List<Transfer> getTransfersByUserId(Principal principal){
+//        String name = principal.getName();
+//        int userID = userDao.findIdByUsername(name);
+//        return transferDao.getTransfersByUserId(userID);
+//    }
 
 
 //    //POST TRANSFER
