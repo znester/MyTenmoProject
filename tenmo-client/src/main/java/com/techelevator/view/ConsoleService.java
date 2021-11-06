@@ -141,10 +141,10 @@ public class ConsoleService {
 		out.println();
 		out.println("---------------------------------------------");
 		try {
-			for (int i = 0; i < transfers.size(); i++) {
+			for (Transfer transfer : transfers) {
 				if (1==1) {
-					out.printf("%-30s", username);
-					out.printf("%-10s %n", "User To");
+					out.printf("%-30s", transfer.getAccountToName());
+					out.printf("%-10s %n", transfer.getAccountFromName());
 				}
 			}
 		}catch (RestClientResponseException ex){
