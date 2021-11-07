@@ -1,6 +1,6 @@
 package com.techelevator.tenmo.model;
 
-
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -9,14 +9,23 @@ public class Transfer {
     private int transferID;
     private int transferTypeId;
     private int transferStatusId;
-    private int accountFromId;
-    private int accountToId;
-    private BigDecimal amount;
-    private User username;
-    private String accountFromName;
-    private String accountToName;
     private Account accountFrom;
     private Account accountTo;
+    private BigDecimal amount;
+    private int accountFromId;
+    private int accountToId;
+
+
+    public Transfer(int transferID, int transferTypeId, int transferStatusId, Account accountFrom, Account accountTo, BigDecimal amount, int accountFromId, int accountToId) {
+        this.transferID = transferID;
+        this.transferTypeId = transferTypeId;
+        this.transferStatusId = transferStatusId;
+        this.accountFrom = accountFrom;
+        this.accountTo = accountTo;
+        this.amount = amount;
+        this.accountFromId = accountFromId;
+        this.accountToId = accountToId;
+    }
 
     public Transfer() {
     }
@@ -45,52 +54,12 @@ public class Transfer {
         this.transferStatusId = transferStatusId;
     }
 
-    public int getAccountFromId() {
-        return accountFromId;
-    }
-
-    public void setAccountFromId(int accountFromId) {
-        this.accountFromId = accountFromId;
-    }
-
-    public int getAccountToId() {
-        return accountToId;
-    }
-
-    public void setAccountToId(int accountToId) {
-        this.accountToId = accountToId;
-    }
-
     public BigDecimal getAmount() {
         return amount;
     }
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
-    }
-
-    public User getUsername() {
-        return username;
-    }
-
-    public void setUsername(User username) {
-        this.username = username;
-    }
-
-    public String getAccountFromName() {
-        return accountFromName;
-    }
-
-    public void setAccountFromName(String accountFromName) {
-        this.accountFromName = accountFromName;
-    }
-
-    public String getAccountToName() {
-        return accountToName;
-    }
-
-    public void setAccountToName(String accountToName) {
-        this.accountToName = accountToName;
     }
 
     public Account getAccountFrom() {
@@ -109,20 +78,35 @@ public class Transfer {
         this.accountTo = accountTo;
     }
 
-    public Transfer(int transferID, int transferTypeId, int transferStatusId, int accountFromId, int accountToId, BigDecimal amount, User username, String accountFromName, String accountToName, Account accountFrom, Account accountTo) {
-        this.transferID = transferID;
-        this.transferTypeId = transferTypeId;
-        this.transferStatusId = transferStatusId;
+    public int getAccountFromId() {
+        return accountFromId;
+    }
+
+    public void setAccountFromId(int accountFromId) {
         this.accountFromId = accountFromId;
+    }
+
+    public int getAccountToId() {
+        return accountToId;
+    }
+
+    public void setAccountToId(int accountToId) {
         this.accountToId = accountToId;
-        this.amount = amount;
-        this.username = username;
-        this.accountFromName = accountFromName;
-        this.accountToName = accountToName;
-        this.accountFrom = accountFrom;
-        this.accountTo = accountTo;
+    }
 
-
+    @Override
+    public String toString() {
+        return "Transfer{" +
+                "transferID=" + transferID +
+                ", transferTypeId=" + transferTypeId +
+                ", transferStatusId=" + transferStatusId +
+                ", accountFrom=" + accountFrom +
+                ", accountTo=" + accountTo +
+                ", amount=" + amount +
+                ", accountFromId=" + accountFromId +
+                ", accountToId=" + accountToId +
+                '}';
     }
 }
+
 

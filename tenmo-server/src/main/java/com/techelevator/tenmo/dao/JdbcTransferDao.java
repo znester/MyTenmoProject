@@ -100,11 +100,11 @@ public class JdbcTransferDao implements TransferDao {
 
     @Override
     public void transferToUser(Account fromAccount, Account toAccount, BigDecimal amount) {
-        String sql = "INSERT INTO transfers (transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
-                "Values (default, 2, 2, ?, ?, ?);";
+        String sql = "INSERT INTO transfers (transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
+                "Values (2, 2, ?, ?, ?);";
         jdbcTemplate.update(sql, fromAccount.getAccountId(), toAccount.getAccountId(), amount);
-        accountDao.deposit(amount, toAccount);
-        accountDao.withdraw(amount,fromAccount);
+        accountDao.withdraw(amount, toAccount);
+        accountDao.deposit(amount, fromAccount);
     }
 
     //Extras
@@ -158,10 +158,10 @@ public class JdbcTransferDao implements TransferDao {
         transfer.setAccountFromId(rowSet.getInt("account_from"));
         transfer.setAccountToId(rowSet.getInt("account_to"));
         transfer.setAmount(rowSet.getBigDecimal("amount"));
-        transfer.setAccountToName(rowSet.getString("account_to_name"));
-        transfer.setAccountFromName(rowSet.getString("account_from_name"));
-        transfer.setAccountFromName(rowSet.getString("username"));
-        transfer.setAccountToName(rowSet.getString("username"));
+//        transfer.setAccountToName(rowSet.getString("account_to_name"));
+//        transfer.setAccountFromName(rowSet.getString("account_from_name"));
+//        transfer.setAccountFromName(rowSet.getString("username"));
+//        transfer.setAccountToName(rowSet.getString("username"));
         transfer.setAccountTo(rowSet.getObject("account_to", Account.class));
         transfer.setAccountFrom(rowSet.getObject("account_from", Account.class));
         return transfer;

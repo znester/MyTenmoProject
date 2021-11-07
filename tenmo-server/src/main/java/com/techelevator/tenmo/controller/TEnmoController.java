@@ -43,8 +43,8 @@ public class TEnmoController {
 
     //POST TRANSFER BY PRINCIPAL
     @RequestMapping(path = "/transfers/makeTransfer", method = RequestMethod.POST)
-    public void makeTransfer(@RequestBody Transfer transfer, Principal principal){
-        transferDao.createTransfer(transfer, principal);
+    public void makeTransfer(@RequestBody Transfer transfer ){
+        transferDao.transferToUser(transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
     }
 
     //GET USER BY USERNAME
