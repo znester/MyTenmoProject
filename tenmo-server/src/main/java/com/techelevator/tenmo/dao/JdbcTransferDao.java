@@ -143,6 +143,11 @@ public class JdbcTransferDao implements TransferDao {
         transfer.setAccountFromId(rowSet.getInt("account_from"));
         transfer.setAccountToId(rowSet.getInt("account_to"));
         transfer.setAmount(rowSet.getBigDecimal("amount"));
+
+
+//        transfer.setAccountFromUsername(rowSet.getString("username"));
+//        transfer.setAccountToUsername(rowSet.getString("username"));
+
         //transfer.setAccountToName(rowSet.getString("account_to_name"));
         //transfer.setAccountFromName(rowSet.getString("account_from_name"));
         //transfer.setAccountFromName(rowSet.getString("username"));
@@ -159,10 +164,10 @@ public class JdbcTransferDao implements TransferDao {
         transfer.setAccountFromId(rowSet.getInt("account_from"));
         transfer.setAccountToId(rowSet.getInt("account_to"));
         transfer.setAmount(rowSet.getBigDecimal("amount"));
-//        transfer.setAccountToName(rowSet.getString("account_to_name"));
-//        transfer.setAccountFromName(rowSet.getString("account_from_name"));
-//        transfer.setAccountFromName(rowSet.getString("username"));
-//        transfer.setAccountToName(rowSet.getString("username"));
+        transfer.setAccountToUsername(rowSet.getString("username"));
+        transfer.setAccountFromUsername(rowSet.getString("username"));
+        //transfer.setAccountFromName(rowSet.getString("username"));
+        //transfer.setAccountToName(rowSet.getString("username"));
         transfer.setAccountTo(rowSet.getObject("account_to", Account.class));
         transfer.setAccountFrom(rowSet.getObject("account_from", Account.class));
         return transfer;

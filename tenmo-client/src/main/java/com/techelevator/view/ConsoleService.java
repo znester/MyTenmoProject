@@ -133,7 +133,8 @@ public class ConsoleService {
 
 
 
-	public void transferHistory(List<Transfer> transfers, String username) {
+	public void transferHistory(List<Transfer> transfers, int accountId) {
+
 		out.println("---------------------------------------------");
 		out.println("Transfer History\n");
 		out.printf("%-30s", "Account From Username");
@@ -142,9 +143,9 @@ public class ConsoleService {
 		out.println("---------------------------------------------");
 		try {
 			for (Transfer transfer : transfers) {
-				if (username == transfer.getAccountToName() || username == transfer.getAccountFromName()) {
-					out.printf("%-30s", transfer.getAccountToName());
-					out.printf("%-10s %n", transfer.getAccountFromName());
+				if (1==1) {
+					out.printf("%-30s", transfer.getAccountFromId());
+					out.printf("%-10s %n", transfer.getAccountToId());
 				}
 			}
 		}catch (RestClientResponseException ex){
