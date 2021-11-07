@@ -59,8 +59,9 @@ public class JdbcAccountDao implements AccountDao {
         return accounts;
     }
 
+
     @Override
-    public void deposit(BigDecimal amount, int account) {
+    public void deposit(BigDecimal amount, Account account) {
         String sql = "UPDATE accounts " +
                 "SET balance = balance + ? " +
                 "WHERE account_id = ?; ";
@@ -68,7 +69,7 @@ public class JdbcAccountDao implements AccountDao {
     }
 
     @Override
-    public void withdraw(BigDecimal amount, int account) {
+    public void withdraw(BigDecimal amount, Account account) {
         String sql = "UPDATE accounts " +
                 "SET balance = balance - ? " +
                 "WHERE account_id = ?; ";

@@ -13,7 +13,8 @@ public interface TransferDao {
 
     Transfer getTransferByTransferId(int transferId);
 
-    void createTransfer(Transfer transfer, Principal principal);
+    //void createTransfer(Transfer transfer, Principal principal);
+    void transferToUser(Account fromAccount, Account toAccount, BigDecimal amount);
 
     //public List<Transfer> getAllTransfers();
 

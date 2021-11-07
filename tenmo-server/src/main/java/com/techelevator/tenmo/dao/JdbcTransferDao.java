@@ -86,16 +86,25 @@ public class JdbcTransferDao implements TransferDao {
 //        return transfers;
 //    }
 
+//    @Override
+//    public void createTransfer(Transfer transfer, Principal principal) {
+//
+//        String sql = "INSERT INTO transfers (transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
+//                "VALUES (?, ?, ?, ?, ?)";
+//
+//        jdbcTemplate.update(sql, 2, transfer.getTransferStatusId(), transfer.getAccountFromId(),
+//                transfer.getAccountToId(), transfer.getAmount());
+//        accountDao.withdraw(transfer.getAmount(), transfer.getAccountToId());
+//        accountDao.deposit(transfer.getAmount(), transfer.getAccountFromId());
+//    }
+
     @Override
-    public void createTransfer(Transfer transfer, Principal principal) {
-
-        String sql = "INSERT INTO transfers (transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
-                "VALUES (?, ?, ?, ?, ?)";
-
-        jdbcTemplate.update(sql, 2, transfer.getTransferStatusId(), transfer.getAccountFromId(),
-                transfer.getAccountToId(), transfer.getAmount());
-        accountDao.withdraw(transfer.getAmount(), transfer.getAccountToId());
-        accountDao.deposit(transfer.getAmount(), transfer.getAccountFromId());
+    public void transferToUser(Account fromAccount, Account toAccount, BigDecimal amount) {
+        String sql = "INSERT INTO transfers (transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
+                "Values (default, 2, 2, ?, ?, ?);";
+        jdbcTemplate.update(sql, fromAccount.getAccountId(), toAccount.getAccountId(), amount);
+        accountDao.deposit(amount, toAccount);
+        accountDao.withdraw(amount,fromAccount);
     }
 
     //Extras
@@ -139,6 +148,22 @@ public class JdbcTransferDao implements TransferDao {
         //transfer.setAccountToName(rowSet.getString("username"));
         //transfer.setAccountTo(rowSet.getObject("account_to", Account.class));
         //transfer.setAccountFrom(rowSet.getObject("account_from", Account.class));
+        return transfer;
+    }
+    private Transfer mapRowCreateTransfer(SqlRowSet rowSet) {
+        Transfer transfer = new Transfer();
+        transfer.setTransferID(rowSet.getInt("transfer_id"));
+        transfer.setTransferTypeId(rowSet.getInt("transfer_type_id"));
+        transfer.setTransferStatusId(rowSet.getInt("transfer_status_id"));
+        transfer.setAccountFromId(rowSet.getInt("account_from"));
+        transfer.setAccountToId(rowSet.getInt("account_to"));
+        transfer.setAmount(rowSet.getBigDecimal("amount"));
+        transfer.setAccountToName(rowSet.getString("account_to_name"));
+        transfer.setAccountFromName(rowSet.getString("account_from_name"));
+        transfer.setAccountFromName(rowSet.getString("username"));
+        transfer.setAccountToName(rowSet.getString("username"));
+        transfer.setAccountTo(rowSet.getObject("account_to", Account.class));
+        transfer.setAccountFrom(rowSet.getObject("account_from", Account.class));
         return transfer;
     }
 //
