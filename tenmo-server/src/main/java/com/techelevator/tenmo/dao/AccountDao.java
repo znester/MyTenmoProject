@@ -16,8 +16,8 @@ public interface AccountDao {
 
     List<Account> getAllAccounts();
 
-    void withdraw(BigDecimal amount, Account account);
+    void withdraw(BigDecimal amount, int accountToId);
 
-    void deposit(BigDecimal amount, Account account);
+    void deposit(BigDecimal amount, int accountToId);
 
 }

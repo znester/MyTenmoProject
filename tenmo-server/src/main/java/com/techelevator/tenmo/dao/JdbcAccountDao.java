@@ -7,6 +7,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,19 +60,19 @@ public class JdbcAccountDao implements AccountDao {
     }
 
     @Override
-    public void deposit(BigDecimal amount, Account account) {
+    public void deposit(BigDecimal amount, int account) {
         String sql = "UPDATE accounts " +
                 "SET balance = balance + ? " +
                 "WHERE account_id = ?; ";
-        jdbcTemplate.update(sql, amount, account.getAccountId());
+        jdbcTemplate.update(sql, amount, account);
     }
 
     @Override
-    public void withdraw(BigDecimal amount, Account account) {
+    public void withdraw(BigDecimal amount, int account) {
         String sql = "UPDATE accounts " +
                 "SET balance = balance - ? " +
                 "WHERE account_id = ?; ";
-        jdbcTemplate.update(sql,amount, account.getAccountId());
+        jdbcTemplate.update(sql, amount, account);
     }
 
 

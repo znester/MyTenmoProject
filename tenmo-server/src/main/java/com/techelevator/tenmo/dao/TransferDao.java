@@ -4,17 +4,18 @@ import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Transfer;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.List;
 
 public interface TransferDao {
 
-    List<Transfer> getTransfersByUsername(String username);
+    List<Transfer> getTransfersByUsername(Principal principal);
 
     Transfer getTransferByTransferId(int transferId);
 
-    void transferToUser(Account fromAccount, Account toAccount, BigDecimal amount);
+    void createTransfer(Transfer transfer, Principal principal);
 
-    public List<Transfer> getAllTransfers();
+    //public List<Transfer> getAllTransfers();
 
     //Extras
     Transfer requestTransfer(int userFromId, int userToId, BigDecimal amount);

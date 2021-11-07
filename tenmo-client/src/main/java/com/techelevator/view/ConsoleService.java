@@ -142,7 +142,7 @@ public class ConsoleService {
 		out.println("---------------------------------------------");
 		try {
 			for (Transfer transfer : transfers) {
-				if (1==1) {
+				if (username == transfer.getAccountToName() || username == transfer.getAccountFromName()) {
 					out.printf("%-30s", transfer.getAccountToName());
 					out.printf("%-10s %n", transfer.getAccountFromName());
 				}

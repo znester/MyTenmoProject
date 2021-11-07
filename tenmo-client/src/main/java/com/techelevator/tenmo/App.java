@@ -63,7 +63,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		this.transferService = new TransferService(API_BASE_URL, currentUser);
 		this.accountList = accountService.allAccounts();
 		this.transferHistory = transferService.getTransferHistory();
-		this.allTransfers = transferService.getAllTransfers();
+		//this.allTransfers = transferService.getAllTransfers();
 		this.account = account;
 		mainMenu();
 	}
@@ -97,7 +97,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
-		console.transferHistory(allTransfers, currentUser.getUser().getUsername());
+		console.transferHistory(transferHistory, currentUser.getUser().getUsername());
 	}
 
 	private void viewPendingRequests() {

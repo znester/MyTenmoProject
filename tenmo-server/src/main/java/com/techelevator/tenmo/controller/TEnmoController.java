@@ -37,15 +37,14 @@ public class TEnmoController {
 
     //GET TRANSFER HISTORY BY PRINCIPAL USERNAME
     @RequestMapping(path = "/accounts/users/transfers", method = RequestMethod.GET)
-    @ResponseBody
     public List<Transfer> getTransfersByUsername(Principal principal){
-        return transferDao.getTransfersByUsername(principal.getName());
+        return transferDao.getTransfersByUsername(principal);
     }
 
     //POST TRANSFER BY PRINCIPAL
     @RequestMapping(path = "/transfers/makeTransfer", method = RequestMethod.POST)
-    public void makeTransfer(@RequestBody Transfer transfer ){
-        transferDao.transferToUser(transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
+    public void makeTransfer(@RequestBody Transfer transfer, Principal principal){
+        transferDao.createTransfer(transfer, principal);
     }
 
     //GET USER BY USERNAME
@@ -60,11 +59,12 @@ public class TEnmoController {
         return accountDao.getAllAccounts();
     }
 
-    //GET ALL TRANSFERS
-    @RequestMapping(path= "/transfers/allTransfers", method = RequestMethod.GET)
-    public List<Transfer> transfers(){return transferDao.getAllTransfers();}
-}
 
+
+    //GET ALL TRANSFERS
+//    @RequestMapping(path= "/transfers/allTransfers", method = RequestMethod.GET)
+//    public List<Transfer> transfers(){return transferDao.getAllTransfers();}
+}
 
 //    //GET TRANSFER HISTORY BY PRINCIPAL USERID
 //    @RequestMapping(path = "/accounts/users/transfers", method = RequestMethod.GET)
