@@ -38,6 +38,7 @@ public class JdbcTransferDao implements TransferDao {
             Transfer transferResults = mapRowToTransfer(results);
             transfers.add(transferResults);
         }
+
         String sql2 = "SELECT transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount " +
                 "FROM transfers " +
                 "WHERE account_to = " +
