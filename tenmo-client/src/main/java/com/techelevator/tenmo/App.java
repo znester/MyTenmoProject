@@ -112,7 +112,7 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 		BigDecimal cash = console.transferAmount();
 		Account accountFrom = filterAccountByUserid(currentUser.getUser().getId(), accountList);
 		Account accountTo = filterAccountByUserid(userId, accountList);
-		if(accountFrom.getBalance().subtract(cash).compareTo(BigDecimal.ZERO) < 0){
+		if(accountFrom.getBalance().subtract(cash).compareTo(BigDecimal.ZERO) <= 0){
 			console.insufficientFunds();
 			return;
 		} else {

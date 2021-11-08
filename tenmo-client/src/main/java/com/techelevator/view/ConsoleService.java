@@ -135,23 +135,24 @@ public class ConsoleService {
 
 	public void transferHistory(List<Transfer> transfers, int accountId) {
 
-		out.println("---------------------------------------------");
+		out.println("------------------------------------------------------------");
 		out.println("Transfer History\n");
-		out.printf("%-30s", "Account From Username");
-		out.printf("%-10s %n", "Account To Username");
-		out.println();
-		out.println("---------------------------------------------");
+		out.printf("%-30s", "Account From ID");
+		out.printf("%-20s", "Account To ID");
+		out.printf("%-40s %n", "Transfer Amount");
+		out.println("------------------------------------------------------------");
 		try {
 			for (Transfer transfer : transfers) {
 				if (1==1) {
 					out.printf("%-30s", transfer.getAccountFromId());
-					out.printf("%-10s %n", transfer.getAccountToId());
+					out.printf("%-20s", transfer.getAccountToId());
+					out.printf("%-40s %n", transfer.getAmount());
 				}
 			}
 		}catch (RestClientResponseException ex){
 			System.out.println("You Have No Transfers");
 		}
-		out.println("---------------------------------------------");
+		out.println("------------------------------------------------------------");
 		out.flush();
 	}
 }
