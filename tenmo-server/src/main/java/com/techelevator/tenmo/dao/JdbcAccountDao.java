@@ -59,33 +59,6 @@ public class JdbcAccountDao implements AccountDao {
         return accounts;
     }
 
-
-//    @Override
-//    public Account getAccountByAccountId(int accountId) {
-//        Account account = null;
-//        String sql = "SELECT account_id, user_id, balance FROM accounts WHERE account_id = ?";
-//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, accountId);
-//        if (results.next()) {
-//            account = mapRowToAccount(results);
-//        }
-//        return account;
-//    }
-//
-//    @Override
-//    public List<Account> getAllAccounts() {
-//        List<Account> accounts = new ArrayList<>();
-//        String sql = "SELECT account_id, accounts.user_id, balance, username FROM accounts " +
-//                "JOIN users ON accounts.user_id = users.user_id ; ";
-//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-//        while (results.next()) {
-//            Account account = mapRowToAccount(results);
-//            account.setUsername(results.getString("username"));
-//            accounts.add(account);
-//
-//        }
-//        return accounts;
-//    }
-
     @Override
     public void deposit(BigDecimal amount, Account account) {
         String sql = "UPDATE accounts " +

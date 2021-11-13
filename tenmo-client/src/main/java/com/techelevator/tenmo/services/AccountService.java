@@ -37,6 +37,7 @@ public class AccountService {
         Account account = null;
         account = restTemplate.exchange(baseUrl + "/accounts/balance", HttpMethod.GET,
                 makeAuthEntity(), Account.class).getBody();
+        assert account != null;
         System.out.println("Your account balance is : $" + account.getBalance());
 
         return account;

@@ -58,31 +58,4 @@ public class TEnmoController {
     public List<Account> accounts() {
         return accountDao.getAllAccounts();
     }
-
-
-
-    //GET ALL TRANSFERS
-//    @RequestMapping(path= "/transfers/allTransfers", method = RequestMethod.GET)
-//    public List<Transfer> transfers(){return transferDao.getAllTransfers();}
 }
-
-//    //GET TRANSFER HISTORY BY PRINCIPAL USERID
-//    @RequestMapping(path = "/accounts/users/transfers", method = RequestMethod.GET)
-//    @ResponseBody
-//    public List<Transfer> getTransfersByUserId(Principal principal){
-//        String name = principal.getName();
-//        int userID = userDao.findIdByUsername(name);
-//        return transferDao.getTransfersByUserId(userID);
-//    }
-
-//    //POST TRANSFER
-//    @RequestMapping(path = "accounts/transfers", method = RequestMethod.POST)
-//    public Transfer addTransfer(@RequestBody Transfer transfer){
-//        return transferDao.requestTransfer(transfer.getAccount_from(), transfer.getAccount_to(), transfer.getAmount());
-//    }
-
-//SEND MONEY/RECEIVE (UPDATE)
-//    @RequestMapping(path = "/accounts/users/{username}", method = RequestMethod.PUT)
-//    public Account sendMoney(@RequestBody Account myAccount, BigDecimal amount, @PathVariable String username) {
-//        accountDao.sendMoney(myAccount, amount, username);
-//    }

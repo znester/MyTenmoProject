@@ -130,9 +130,6 @@ public class ConsoleService {
 		out.println("---------------------------------------------");
 	}
 
-
-
-
 	public void transferHistory(List<Transfer> transfers, int accountId) {
 
 		out.println("------------------------------------------------------------");

@@ -21,8 +21,6 @@ public class JdbcTransferDao implements TransferDao {
         this.jdbcTemplate = jdbcTemplate;
         this.accountDao = accountDao;
     }
-
-
     @Override
     public List<Transfer> getTransfersByUsername(Principal principal) {
         List <Transfer> transfers = new ArrayList<>();
@@ -69,35 +67,7 @@ public class JdbcTransferDao implements TransferDao {
         return transfer;
     }
 
-    //GET ALL TRANSFERS
-//    @Override
-//    public List<Transfer> getAllTransfers() {
-//        List<Transfer> transfers = new ArrayList<>();
-//        String sql = "SELECT t.transfer_id, t.transfer_type_id, t.transfer_status_id, u_from.username as account_from_name, u.username as account_to_name, t.amount, u.username " +
-//                "FROM transfers t " +
-//                "JOIN accounts a ON t.account_to = a.account_id " +
-//                "JOIN accounts a_from ON t.account_from = a_from.account_id " +
-//                "JOIN users u_from ON a_from.user_id = u_from.user_id " +
-//                "JOIN users u ON a.user_id = u.user_id; ";
-//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-//        while (results.next()) {
-//            Transfer transferResults = mapRowToTransfer(results);
-//            transfers.add(transferResults);
-//        }
-//        return transfers;
-//    }
 
-//    @Override
-//    public void createTransfer(Transfer transfer, Principal principal) {
-//
-//        String sql = "INSERT INTO transfers (transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
-//                "VALUES (?, ?, ?, ?, ?)";
-//
-//        jdbcTemplate.update(sql, 2, transfer.getTransferStatusId(), transfer.getAccountFromId(),
-//                transfer.getAccountToId(), transfer.getAmount());
-//        accountDao.withdraw(transfer.getAmount(), transfer.getAccountToId());
-//        accountDao.deposit(transfer.getAmount(), transfer.getAccountFromId());
-//    }
 
     @Override
     public void transferToUser(Account fromAccount, Account toAccount, BigDecimal amount) {
@@ -143,17 +113,6 @@ public class JdbcTransferDao implements TransferDao {
         transfer.setAccountFromId(rowSet.getInt("account_from"));
         transfer.setAccountToId(rowSet.getInt("account_to"));
         transfer.setAmount(rowSet.getBigDecimal("amount"));
-
-
-//        transfer.setAccountFromUsername(rowSet.getString("username"));
-//        transfer.setAccountToUsername(rowSet.getString("username"));
-
-        //transfer.setAccountToName(rowSet.getString("account_to_name"));
-        //transfer.setAccountFromName(rowSet.getString("account_from_name"));
-        //transfer.setAccountFromName(rowSet.getString("username"));
-        //transfer.setAccountToName(rowSet.getString("username"));
-        //transfer.setAccountTo(rowSet.getObject("account_to", Account.class));
-        //transfer.setAccountFrom(rowSet.getObject("account_from", Account.class));
         return transfer;
     }
     private Transfer mapRowCreateTransfer(SqlRowSet rowSet) {
@@ -166,21 +125,9 @@ public class JdbcTransferDao implements TransferDao {
         transfer.setAmount(rowSet.getBigDecimal("amount"));
         transfer.setAccountToUsername(rowSet.getString("username"));
         transfer.setAccountFromUsername(rowSet.getString("username"));
-        //transfer.setAccountFromName(rowSet.getString("username"));
-        //transfer.setAccountToName(rowSet.getString("username"));
         transfer.setAccountTo(rowSet.getObject("account_to", Account.class));
         transfer.setAccountFrom(rowSet.getObject("account_from", Account.class));
         return transfer;
     }
-//
-//
-//
-//    private Account accountFrom;
-//    private Account accountTo;
-//    private BigDecimal amount;
-//
-//
-//    private User username;
-//    private String accountFromName;
-//    private String accountToName;
+
 }

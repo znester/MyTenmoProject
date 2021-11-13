@@ -204,16 +204,4 @@ private static final String API_BASE_URL = "http://localhost:8080/";
 
     	return account;
 	}
-
-//	private Transfer filterTransferByUserid(int userId, List<Transfer> userTransfers){
-//		Transfer transfer = null;
-//		for(Transfer currentTransfer : userTransfers){
-//			if (currentTransfer.getAccountFromId() == userId){
-//				account = currentAccount;
-//			}
-//		}
-//
-//		return account;
-//	}
-
 }

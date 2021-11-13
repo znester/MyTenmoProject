@@ -34,19 +34,11 @@ public class TransferService {
         return new HttpEntity<>(headers);
     }
 
-
     public List<Transfer> getTransferHistory(){
         Transfer[] transfers = restTemplate.exchange(baseUrl + "accounts/users/transfers",
                 HttpMethod.GET, makeAuthEntity(), Transfer[].class).getBody();
         return Arrays.asList(transfers);
     }
-
-    //GET ALL TRANSFERS
-//    public List<Transfer> getAllTransfers(){
-//        Transfer[] allTransfers = restTemplate.exchange(baseUrl + "/transfers/allTransfers",
-//                HttpMethod.GET, makeAuthEntity(), Transfer[].class).getBody();
-//        return Arrays.asList(allTransfers);
-//    }
 
     public void makeTransfer(Transfer transfer){
         HttpEntity<Transfer> postEntity = new HttpEntity<>(transfer, makeAuthEntity().getHeaders());
@@ -54,9 +46,3 @@ public class TransferService {
     }
 }
 
-
-
-//pass in transfer into http entity
-//param = transfer
-//use exchange for transfer method
-//one method for request one for make transfer
