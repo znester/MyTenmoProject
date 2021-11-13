@@ -1,10 +1,12 @@
 package com.techelevator.tenmo.controller;
 
 import com.techelevator.tenmo.dao.*;
+import com.techelevator.tenmo.exception.AccountNotFoundException;
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.User;
 import org.hibernate.validator.constraints.pl.REGON;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +16,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-//@PreAuthorize("isAuthenticated()")
+@PreAuthorize("isAuthenticated()")
 
 public class TEnmoController {
     private final AccountDao accountDao;
@@ -37,17 +39,19 @@ public class TEnmoController {
 
     //GET TRANSFER HISTORY BY PRINCIPAL USERNAME
     @RequestMapping(path = "/accounts/users/transfers", method = RequestMethod.GET)
-    public List<Transfer> getTransfersByUsername(Principal principal){
+    public List<Transfer> getTransfersByUsername(Principal principal) {
         return transferDao.getTransfersByUsername(principal);
     }
 
     //POST TRANSFER BY PRINCIPAL
+    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/transfers/makeTransfer", method = RequestMethod.POST)
-    public void makeTransfer(@RequestBody Transfer transfer ){
+    public void makeTransfer(@RequestBody Transfer transfer ) throws AccountNotFoundException {
         transferDao.transferToUser(transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
     }
 
     //GET USER BY USERNAME
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(path = "/accounts/users/{username}", method = RequestMethod.GET)
     public User user(@PathVariable String username) {
         return userDao.findByUsername(username);

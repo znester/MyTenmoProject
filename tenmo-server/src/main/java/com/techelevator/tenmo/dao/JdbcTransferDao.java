@@ -1,5 +1,6 @@
 package com.techelevator.tenmo.dao;
 
+import com.techelevator.tenmo.exception.AccountNotFoundException;
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.User;
@@ -70,7 +71,7 @@ public class JdbcTransferDao implements TransferDao {
 
 
     @Override
-    public void transferToUser(Account fromAccount, Account toAccount, BigDecimal amount) {
+    public void transferToUser(Account fromAccount, Account toAccount, BigDecimal amount) throws AccountNotFoundException {
         String sql = "INSERT INTO transfers (transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
                 "Values (2, 2, ?, ?, ?);";
         jdbcTemplate.update(sql, fromAccount.getAccountId(), toAccount.getAccountId(), amount);
